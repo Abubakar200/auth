@@ -17,7 +17,7 @@ export default function Sigup() {
   };
   return (
     <div className="h-full flex flex-col justify-center items-start ">
-      <div className="mx-auto max-w-sm space-y-6  border border-gray-200 rounded-lg p-8 shadow-lg">
+      <div className="mx-auto max-w-sm space-y-6  border border-gray-200 rounded-lg p-10 shadow-lg">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Sign Up</h1>
           <p className="text-gray-500 dark:text-gray-400">
@@ -53,10 +53,10 @@ export default function Sigup() {
             />
           </div>
           <Button onClick={onSubmit} className="w-full">
-            Sign Up
+            Login
           </Button>
           <div className="mt-4 text-center text-sm">
-            Already have an account?
+            Already have an account?{" "}
             <Link className="underline" href="/login">
               Login
             </Link>
