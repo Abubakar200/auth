@@ -30,7 +30,7 @@ export default function Signup() {
             setLoading(true)
             await axios.post("/api/users/signup", user)
             toast.success("Registration successfully")
-            router.push("/login")
+            router.push("/verifyemail")
         } catch (error: any) {
             toast.error("Error Occurred!", error)
         }finally{
