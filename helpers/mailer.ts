@@ -8,13 +8,17 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
-        verifyToken: hashToken,
-        verifyTokenExpiry: Date.now() + 3600000,
+        $set: {
+          verifyToken: hashToken,
+          verifyTokenExpiry: Date.now() + 3600000,
+        },
       });
     } else if (emailType === "RESET") {
       await User.findByIdAndUpdate(userId, {
-        forgetPasswordToken: hashToken,
-        forgetPasswordTokenExpiry: Date.now() + 3600000,
+        $set: {
+          forgetPasswordToken: hashToken,
+          forgetPasswordTokenExpiry: Date.now() + 3600000,
+        },
       });
     }
 
@@ -23,16 +27,22 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       port: 2525,
       auth: {
         user: "b6b1b56b684af4",
-        pass: "febd25f09e896d"
-      }
+        pass: "febd25f09e896d",
+      },
     });
     const option = {
       from: "practice@practice.com", // sender address
       to: email, // list of receivers
       subject: emailType === "VERIFY" ? "Verify your email" : "Reset Password", // Subject line
-      html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
-      or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashToken}
-      </p>` // html body
+      html: `<p>Click <a href="${
+        process.env.DOMAIN
+      }/verifyemail?token=${hashToken}">here</a> to ${
+        emailType === "VERIFY" ? "verify your email" : "reset your password"
+      }
+      or copy and paste the link below in your browser. <br> ${
+        process.env.DOMAIN
+      }/verifyemail?token=${hashToken}
+      </p>`, // html body
     };
 
     const mailResponse = await transporter.sendMail(option);
